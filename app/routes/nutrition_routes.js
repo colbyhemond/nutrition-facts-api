@@ -5,9 +5,9 @@ const Nutrition = new NutritionComponent();
 
 module.exports = function(app, db) {
     app.post('/nutrition', (req, res) => { 
-        let data = JSON.parse(req.body) 
+        let data = req.body
         const imgUrl = data.imgUrl
-        console.log(req.body);
+        console.log(data);
         if (imgUrl) {
 
             Nutrition.perform(imgUrl)
