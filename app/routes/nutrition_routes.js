@@ -1,25 +1,29 @@
-const Nutrition = require('../controllers/nutrition.controller')
+const NutritionComponent = require('../components/nutrition')
+const NutritionParser = require('../components/nutritionParser')
 
-const nutObj = new Nutrition();
+const Nutrition = new NutritionComponent();
 
 module.exports = function(app, db) {
-    app.post('/nutrition', (req, res) => {   
+    app.post('/nutrition', (req, res) => {  
         const imgUrl = req.body.imgUrl
-        console.log(req.body);
+        // console.log(req.body);
         if (imgUrl) {
-            nutObj.perform(imgUrl)
+
+            Nutrition.perform(imgUrl)
+
+            res.sendStatus(200)
+            return
         } else {
             res.sendStatus(400)
+            return
         }
-        res.sendStatus(200)
     })
 
     app.get('/nutrition', (req, res) => {
-        const text = nutObj.content
-        console.log(text);
-        if (text){
-            res.json({content: text})
-            res.sendStatus(200)
+        if (Nutrition.content){
+            const nutritionFacts = new NutritionParser(Nutrition.content)
+            res.json(nutritionFacts.getObject())
+            res.status(200)
         } else {
             res.sendStatus(404)
         }
