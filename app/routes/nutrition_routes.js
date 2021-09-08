@@ -23,6 +23,7 @@ module.exports = function(app, db) {
     app.get('/nutrition', (req, res) => {
         if (Nutrition.content){
             const nutritionFacts = new NutritionParser(Nutrition.content)
+            console.log(nutritionFacts.getObject());
             res.json(nutritionFacts.getObject())
             res.status(200)
         } else {
