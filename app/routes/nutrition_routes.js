@@ -24,7 +24,7 @@ module.exports = function(app, db) {
         if (Nutrition.content){
             const nutritionFacts = new NutritionParser(Nutrition.content)
             console.log(nutritionFacts.getObject());
-            res.json(nutritionFacts.getObject())
+            res.json(JSON.stringify(nutritionFacts.getObject()))
             res.status(200)
         } else {
             res.sendStatus(404)
