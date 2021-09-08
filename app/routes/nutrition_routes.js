@@ -4,8 +4,9 @@ const NutritionParser = require('../components/nutritionParser')
 const Nutrition = new NutritionComponent();
 
 module.exports = function(app, db) {
-    app.post('/nutrition', (req, res) => {  
-        const imgUrl = req.body.imgUrl
+    app.post('/nutrition', (req, res) => { 
+        let data = JSON.parse(req.body) 
+        const imgUrl = data.imgUrl
         console.log(req.body);
         if (imgUrl) {
 
